@@ -111,11 +111,13 @@ exports.getAnswers = async (req, res) => {
       ) {
         if (err) reject(err);
         console.log(result);
-        resolve(
-          result.map((ele, j) => {
-            return { qNo: ele.q_no, options: ele.answer, formId };
-          })
-        );
+        let tmp = [];
+        result.forEach((ele, j) => {
+          if (!tmp.length || tmp[tmp.length - 1].qNo != ele.q_no)
+            tmp.push({ qNo: ele.q_no, options: [ele.answer], formId });
+          else tmp[tmp.length - 1].options.push(ele.answer);
+        });
+        resolve(tmp);
       });
     });
 

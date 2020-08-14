@@ -1,6 +1,7 @@
 module.exports = {
   createForm: "Insert into form_details( u_id, name ) values (?, ?) ",
-  selectLastFormId: "select * from form_details order by form_id desc limit 1",
+  selectLastFormId:
+    "select * from form_details  where form_id in (select form_id from questions) order by form_id desc limit 1",
   createQuestion:
     "Insert into questions (form_id, q_type, question, s_no) values (?, ?, ?, ?)",
   createAnswer:
