@@ -130,3 +130,29 @@ exports.getAnswers = async (req, res) => {
     res.status(500).send({ msg: "not created" });
   }
 };
+
+exports.userInput = (req, res) => {
+  try {
+    let { qNo, options, formId } = req.body;
+    console.log(qNo, options, formId);
+    if (isNaN(qNo) || !options || !formId) {
+      return res.status(400).send({ msg: "absence of mandatory fields" });
+    }
+    options.forEach((e, i) => {
+      mysql.query(
+        queries.insertSurveyAnswersByUsers,
+        [qNo, e, formId],
+        function (err, result) {
+          if (err) throw err;
+          console.log("Number of records inserted: " + result.affectedRows);
+        }
+      );
+    });
+    res.status(201).send({
+      msg: "created successfully",
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ msg: "not created" });
+  }
+};

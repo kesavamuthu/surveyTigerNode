@@ -9,4 +9,5 @@ router.post("/create", form.createFormId);
 router.post("/set", form.placeQuestions);
 router.post("/setans", form.setAnswers);
 router.get("/get", form.getAnswers);
+router.post("/userinput", form.userInput);
 module.exports = router;

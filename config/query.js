@@ -10,4 +10,6 @@ module.exports = {
     "select answer, q_no from option_details where form_id=?",
   selectQuestionNo:
     "select q_type, question, s_no from questions where form_id=?",
+  insertSurveyAnswersByUsers:
+    "Insert into survey_report (q_no,opt_no, form_id) values (?,?,?)",
 };
